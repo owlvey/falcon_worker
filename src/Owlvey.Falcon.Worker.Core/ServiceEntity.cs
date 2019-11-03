@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Owlvey.Falcon.Worker.Core
 {
@@ -20,7 +21,8 @@ namespace Owlvey.Falcon.Worker.Core
                 return new string[0];
             }
             else {
-                return this.Leaders.Split(",");
+                var items = this.Leaders.Split(",");
+                return items.Select(c => c.Trim()).ToArray();                
             }            
         }
     }
