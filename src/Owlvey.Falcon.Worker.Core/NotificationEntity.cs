@@ -19,6 +19,9 @@ namespace Owlvey.Falcon.Worker.Core
         public List<string> where { get; set; } = new List<string>();
         public List<string> when { get; set; } = new List<string>();
         public List<string> why { get; set; } = new List<string>();
+
+        public List<string> references { get; set; } = new List<string>();
+
         public void AddWhom(MemberEntity entity) {
             this.whom.Add(new NotificationWhomEntity()
             {
@@ -42,6 +45,7 @@ namespace Owlvey.Falcon.Worker.Core
                 this.emotion = 5;
             }
         }
+
         public void AddWhat(ServiceEntity service) {
             var message = string.Format("SLO {0}, current availability is {1} ", service.SLO, service.Availability);
             this.what.Add(message);
@@ -61,6 +65,9 @@ namespace Owlvey.Falcon.Worker.Core
         {
             string message = string.Format("Features in {0}", service.Name);
             this.why.Add(message);
+        }
+        public void AddReference(string reference) {
+            this.references.Add(reference);
         }
     }
 }

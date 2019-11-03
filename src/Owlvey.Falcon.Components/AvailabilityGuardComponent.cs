@@ -37,7 +37,7 @@ namespace Owlvey.Falcon.Components
                             {
                                 notification.AddWhom(owner);                                
                             }
-                            notification.AddServiceReason(service, start, end);
+                            notification.AddServiceReason(service, start, end);                            
                             result.Add(notification);                            
                         }
                     }                    

@@ -16,6 +16,14 @@ namespace Owlvey.Falcon.Components
                 return "http://localhost:50001";
             } 
         }
+
+        public string OwlveySite
+        {
+            get
+            {
+                return "http://localhost:4200";
+            }
+        }
         public string OwlveyIdentity
         {
             get

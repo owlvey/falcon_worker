@@ -28,6 +28,12 @@ namespace Owlvey.Falcon.Components
             DateTime start = target.Date.AddDays(-30);
             DateTime end = target.Date;
             var notifications = await this.AvailabilityGuardComponent.BuildServiceLeadersNotifications(start, end);
+
+            foreach (var item in notifications)
+            {
+                item.AddReference(this.ConfigurationComponent.OwlveySite);
+            }
+
             await this.NotificationGateway.SendNotifications(notifications); 
         }
         public void NotifyAvailablityProductLeaders() { 
