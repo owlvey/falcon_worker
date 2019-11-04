@@ -10,26 +10,33 @@ namespace Owlvey.Falcon.Worker.Core
         public string email { get; set; }
         public string slack_member { get; set; }
     }
-    public class NotificationEntity
+    public class NotificationBase {
+        public List<NotificationWhomEntity> whom { get; set; } = new List<NotificationWhomEntity>();
+        public List<string> references { get; set; } = new List<string>();
+        public void AddReference(string reference)
+        {
+            this.references.Add(reference);
+        }
+        public void AddWhom(MemberEntity entity)
+        {
+            this.whom.Add(new NotificationWhomEntity()
+            {
+                name = entity.Email,
+                email = entity.Email,
+                slack_member = entity.SlackMember
+            });
+        }
+    }
+    public class NotificationEntity: NotificationBase
     {
         public int emotion { get; set; } = 3;
         public string action { get; set; } = "alert";
-        public List<NotificationWhomEntity> whom { get; set; } = new List<NotificationWhomEntity>();
+        
         public List<string> what { get; set; } = new List<string>();
         public List<string> where { get; set; } = new List<string>();
         public List<string> when { get; set; } = new List<string>();
         public List<string> why { get; set; } = new List<string>();
-
-        public List<string> references { get; set; } = new List<string>();
-
-        public void AddWhom(MemberEntity entity) {
-            this.whom.Add(new NotificationWhomEntity()
-            {
-                 name = entity.Email,
-                 email = entity.Email,
-                 slack_member = entity.SlackMember
-            });
-        }
+   
 
         public void AddServiceReason(ServiceEntity service, DateTime start, DateTime end) {
             if (service.Budget < 0)
@@ -66,8 +73,6 @@ namespace Owlvey.Falcon.Worker.Core
             string message = string.Format("Features in {0}", service.Name);
             this.why.Add(message);
         }
-        public void AddReference(string reference) {
-            this.references.Add(reference);
-        }
+      
     }
 }

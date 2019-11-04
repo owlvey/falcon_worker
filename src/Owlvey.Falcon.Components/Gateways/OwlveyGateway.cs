@@ -77,5 +77,14 @@ namespace Owlvey.Falcon.Components.Gateways
             var services = await this.Get<List<ServiceEntity>>(url);
             return services;
         }
+        public async Task<ServiceEntity> GetServiceDetail(int serviceId, DateTime start, DateTime end) {
+            string url = this.configurationComponent.OwlveyApi +
+                        string.Format("/services/{0}?start={1}&end={2}", serviceId,
+                        start.ToString("o"), end.ToString("o"));
+
+            var services = await this.Get<ServiceEntity>(url);
+            return services;
+        }
+        
     }
 }

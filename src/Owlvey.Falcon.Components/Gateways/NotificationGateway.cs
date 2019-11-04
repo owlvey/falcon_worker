@@ -18,13 +18,21 @@ namespace Owlvey.Falcon.Components.Gateways
         public async Task SendNotifications(List<NotificationEntity> notifications) {
             foreach (var notification in notifications)
             {
-                await this.SendNotification(notification);                
+                await this.SendNotification(notification, "/notifications");                
             }
         }
-        public async Task SendNotification(NotificationEntity notification)
+
+        public async Task SendServiceNotifications(List<NotificationServiceEntity> notifications)
+        {
+            foreach (var notification in notifications)
+            {
+                await this.SendNotification(notification, "/availability/services");
+            }
+        }
+        public async Task SendNotification(NotificationBase notification, string path)
         {
             HttpClient client = new HttpClient();
-            string url = this.configurationComponent.OwlveyNofiticationApi + "/notifications";
+            string url = this.configurationComponent.OwlveyNofiticationApi + path;
             StringContent content = new StringContent(
                 JsonConvert.SerializeObject(notification)
                 , Encoding.UTF8, "application/json");

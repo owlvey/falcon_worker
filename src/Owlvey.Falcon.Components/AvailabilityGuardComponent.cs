@@ -15,8 +15,8 @@ namespace Owlvey.Falcon.Components
             this.owlveyGateway = owlveyGateway;
         }
 
-        public async Task<List<NotificationEntity>> BuildServiceLeadersNotifications(DateTime start, DateTime end) {
-            var result = new List<NotificationEntity>();
+        public async Task<List<NotificationServiceEntity>> BuildServiceLeadersNotifications(DateTime start, DateTime end) {
+            var result = new List<NotificationServiceEntity>();
 
             var customers = await this.owlveyGateway.GetOrganizationsWithProducts();
             var members = await this.owlveyGateway.GetMembers();
@@ -27,17 +27,19 @@ namespace Owlvey.Falcon.Components
                     var services = await this.owlveyGateway.GetServicesByProduct(product.Id, start, end);
 
                     foreach (var service in services)
-                    {
+                    {                        
                         var leaders = service.GetLeaders();
                         if (leaders.Length > 0) {
 
-                            var notification = new NotificationEntity();
+                            service.Features = (await this.owlveyGateway.GetServiceDetail(service.Id, start, end)).Features;
+
+                            var notification = new NotificationServiceEntity();
                             var owners = members.Where(c => leaders.Contains(c.Email)).ToList();
                             foreach (var owner in owners)
                             {
                                 notification.AddWhom(owner);                                
                             }
-                            notification.AddServiceReason(service, start, end);                            
+                            notification.Load(service, start, end);                            
                             result.Add(notification);                            
                         }
                     }                    

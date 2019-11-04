@@ -15,6 +15,11 @@ namespace Owlvey.Falcon.Worker.Core
 
         public decimal Budget { get; set; }
 
+        public string Group { get; set; }
+        public decimal FeatureSlo { get; set; }
+
+        public List<FeatureEntity> Features { get; set; }
+
         public string[] GetLeaders() {
             if (string.IsNullOrWhiteSpace(this.Leaders))
             {

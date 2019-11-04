@@ -34,7 +34,7 @@ namespace Owlvey.Falcon.Components
                 item.AddReference(this.ConfigurationComponent.OwlveySite);
             }
 
-            await this.NotificationGateway.SendNotifications(notifications); 
+            await this.NotificationGateway.SendServiceNotifications(notifications); 
         }
         public void NotifyAvailablityProductLeaders() { 
 
