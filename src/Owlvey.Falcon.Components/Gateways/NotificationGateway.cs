@@ -29,6 +29,13 @@ namespace Owlvey.Falcon.Components.Gateways
                 await this.SendNotification(notification, "/availability/services");
             }
         }
+        public async Task SendProductNotifications(List<NotificationProductEntity> notifications)
+        {
+            foreach (var notification in notifications)
+            {
+                await this.SendNotification(notification, "/availability/products");
+            }
+        }
         public async Task SendNotification(NotificationBase notification, string path)
         {
             HttpClient client = new HttpClient();

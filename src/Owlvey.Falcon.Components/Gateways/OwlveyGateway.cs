@@ -67,6 +67,15 @@ namespace Owlvey.Falcon.Components.Gateways
             return members;
         }
 
+        public async Task<ProductDashboardEntity> GetProductDashboardByProduct(int productId, DateTime start, DateTime end)
+        {            
+            string url = this.configurationComponent.OwlveyApi +
+                    string.Format("/products/{0}/dashboard?start={1}&end={2}", productId,
+                    start.ToString("o"), end.ToString("o"));            
+            var members = await this.Get<ProductDashboardEntity>(url);
+            return members;
+        }
+
         public async Task<List<ServiceEntity>> GetServicesByProduct(int productId, DateTime start, DateTime end) {
             //2019-10-04T13:38:58.732Z
             //2019-08-05T14:47:32.0327258Z            

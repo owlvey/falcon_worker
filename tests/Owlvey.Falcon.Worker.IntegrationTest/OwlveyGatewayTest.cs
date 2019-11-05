@@ -48,5 +48,22 @@ namespace Owlvey.Falcon.Worker.IntegrationTest
             var members = await owlvey.GetMembers();
             Assert.NotNull(members);
         }
+
+        [Fact]
+        public async Task GetProductDashboardSuccess()
+        {
+            DateTime start = DateTime.Now.Date.AddDays(-15);
+            DateTime end = DateTime.Now.Date;
+            var owlvey = new OwlveyGateway(new ConfigurationComponent());
+            var organizations = await owlvey.GetOrganizationsWithProducts();
+            foreach (var item in organizations)
+            {
+                foreach (var product in item.Products)
+                {
+                    var result = await owlvey.GetProductDashboardByProduct(product.Id, start, end);                    
+                    Assert.NotNull(result);
+                }
+            }            
+        }
     }
 }

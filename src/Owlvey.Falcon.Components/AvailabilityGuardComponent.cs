@@ -15,6 +15,35 @@ namespace Owlvey.Falcon.Components
             this.owlveyGateway = owlveyGateway;
         }
 
+        public async Task<List<NotificationProductEntity>> BuildProductLeadersNofifications(DateTime start, DateTime end) {
+            var result = new List<NotificationProductEntity>();
+            var customers = await this.owlveyGateway.GetOrganizationsWithProducts();
+            var members = await this.owlveyGateway.GetMembers();
+
+            foreach (var customer in customers)
+            {
+                foreach (var product in customer.Products)
+                {
+                    var leaders = product.GetLeaders();
+                    if (leaders.Length > 0)
+                    {
+                        var dashboard = await this.owlveyGateway.GetProductDashboardByProduct(product.Id, start, end);
+
+                        var notification = new NotificationProductEntity();
+                        var owners = members.Where(c => leaders.Contains(c.Email)).ToList();
+                        foreach (var owner in owners)
+                        {
+                            notification.AddWhom(owner);
+                        }
+                        notification.Load(product, dashboard, start, end);
+                        result.Add(notification);
+                    }   
+                }
+            }
+
+            return result;
+        }
+
         public async Task<List<NotificationServiceEntity>> BuildServiceLeadersNotifications(DateTime start, DateTime end) {
             var result = new List<NotificationServiceEntity>();
 

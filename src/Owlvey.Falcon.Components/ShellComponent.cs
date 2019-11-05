@@ -36,7 +36,18 @@ namespace Owlvey.Falcon.Components
 
             await this.NotificationGateway.SendServiceNotifications(notifications); 
         }
-        public void NotifyAvailablityProductLeaders() { 
+
+        public async Task NotifyAvailablityProductLeaders(DateTime target) {
+            DateTime start = target.Date.AddDays(-30);
+            DateTime end = target.Date;
+            var notifications = await this.AvailabilityGuardComponent.BuildProductLeadersNofifications(start, end);
+
+            foreach (var item in notifications)
+            {
+                item.AddReference(this.ConfigurationComponent.OwlveySite);
+            }
+
+            await this.NotificationGateway.SendProductNotifications(notifications);
 
         }
         public void NotifyAvailablityCustomerLeaders()

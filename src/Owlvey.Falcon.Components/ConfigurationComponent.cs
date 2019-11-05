@@ -8,12 +8,12 @@ namespace Owlvey.Falcon.Components
     {
         public string OwlveyNofiticationApi {
             get {
-                return "http://127.0.0.1:5000";
+                return "http://localhost:5000";
             }
         }
         public string OwlveyApi { 
             get {
-                return "http://localhost:50001";
+                return "http://10.237.18.213:45001";
             } 
         }
 
@@ -21,14 +21,14 @@ namespace Owlvey.Falcon.Components
         {
             get
             {
-                return "http://localhost:4200";
+                return "http://10.237.18.213:45000";
             }
         }
         public string OwlveyIdentity
         {
             get
             {
-                return "http://localhost:50000";
+                return "http://10.237.18.213:45002";
             }
         }
         public string OwlveyClientId {
