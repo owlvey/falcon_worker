@@ -50,12 +50,24 @@ namespace Owlvey.Falcon.Components
             await this.NotificationGateway.SendProductNotifications(notifications);
 
         }
-        public void NotifyAvailablityCustomerLeaders()
+        public async Task NotifyAvailablitySquads(DateTime target)
         {
+            DateTime start = target.Date.AddDays(-30);
+            DateTime end = target.Date;
+            var notifications = await this.AvailabilityGuardComponent.BuildSquadMembersNotifications(start, end);
 
-        }
-        public void NotifyAvailabilitySquadMembers() { 
+            foreach (var item in notifications)
+            {
+                item.AddReference(this.ConfigurationComponent.OwlveySite);
 
+                foreach (var member in item.whom)
+                {
+                      member.slack_member = "UFR3ZBD6Y";
+                }
+            }
+
+
+            await this.NotificationGateway.SendSquadNotifications(notifications);
 
         }
     }

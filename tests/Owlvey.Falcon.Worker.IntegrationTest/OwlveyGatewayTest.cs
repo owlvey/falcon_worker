@@ -35,7 +35,8 @@ namespace Owlvey.Falcon.Worker.IntegrationTest
             {
                 foreach (var product in item.Products)
                 {
-                    var services = await owlvey.GetServicesByProduct(product.Id, start, end);
+                    var services = await owlvey.GetServicesByProduct(product.Id,
+                        start, end);
                 }
             }
             Assert.NotNull(customers);
@@ -47,6 +48,31 @@ namespace Owlvey.Falcon.Worker.IntegrationTest
             var owlvey = new OwlveyGateway(new ConfigurationComponent());
             var members = await owlvey.GetMembers();
             Assert.NotNull(members);
+        }
+
+        [Fact]
+        public async Task GetSquadsSuccess() {
+            DateTime start = DateTime.Now.Date.AddDays(-90);
+            DateTime end = DateTime.Now.Date;
+            var owlvey = new OwlveyGateway(new ConfigurationComponent());
+            var organizations = await owlvey.GetOrganizationsWithProducts();
+            foreach (var item in organizations)
+            {
+                foreach (var product in item.Products)
+                {
+                    var squads = await owlvey.GetSquads(product.Id);
+
+                    foreach (var squad in squads)
+                    {
+                        var squadDetail = await owlvey.GetSquadDetail(squad.Id,
+                            start, end);
+
+                        Assert.NotNull(squadDetail);
+                    }
+
+                    Assert.NotNull(squads);
+                }
+            }
         }
 
         [Fact]

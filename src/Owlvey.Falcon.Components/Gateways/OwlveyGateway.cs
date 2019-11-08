@@ -94,6 +94,26 @@ namespace Owlvey.Falcon.Components.Gateways
             var services = await this.Get<ServiceEntity>(url);
             return services;
         }
-        
+
+
+        public async Task<List<SquadEntity>> GetSquads(int customerId) {
+            string url = this.configurationComponent.OwlveyApi +
+                        string.Format("/squads?customerId={0}", customerId);
+
+            var squads = await this.Get<List<SquadEntity>>(url);
+
+            return squads;
+        }
+
+        public async Task<SquadDetailEntity> GetSquadDetail(int squadId, DateTime start, DateTime end)
+        {
+            string url = this.configurationComponent.OwlveyApi +
+                        string.Format("/squads/{0}??start={1}&end={2}", squadId, start, end);
+
+            var squads = await this.Get<SquadDetailEntity>(url);
+
+            return squads;
+        }
+
     }
 }

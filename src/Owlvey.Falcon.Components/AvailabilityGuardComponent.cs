@@ -35,7 +35,7 @@ namespace Owlvey.Falcon.Components
                         {
                             notification.AddWhom(owner);
                         }
-                        notification.Load(product, dashboard, start, end);
+                        notification.Load(customer, product, dashboard, start, end);
                         result.Add(notification);
                     }   
                 }
@@ -77,14 +77,33 @@ namespace Owlvey.Falcon.Components
             return result;
         }
 
-        public List<NotificationEntity> BuildSquadMembersNotifications() {
-            var result = new List<NotificationEntity>();
+        public async Task<List<NotificationSquadEntity>> BuildSquadMembersNotifications(DateTime start, DateTime end) {
+            var result = new List<NotificationSquadEntity>();
+            var customers = await this.owlveyGateway.GetOrganizationsWithProducts();
+            var members = await this.owlveyGateway.GetMembers();
 
-            var customers = this.owlveyGateway.GetOrganizationsWithProducts();            
+            foreach (var customer in customers)
+            {
+                var squads = await this.owlveyGateway.GetSquads(customer.Id);
 
-
+                foreach (var squad in squads)
+                {
+                    var squadDetail = await this.owlveyGateway.GetSquadDetail(squad.Id, start, end);
+                    var leaders = squadDetail.GetLeaders();
+                    if (leaders.Length > 0)
+                    {
+                        var notification = new NotificationSquadEntity();
+                        var owners = members.Where(c => leaders.Contains(c.Email)).ToList();
+                        foreach (var owner in owners)
+                        {
+                            notification.AddWhom(owner);
+                        }
+                        notification.Load(customer, squadDetail, start, end);
+                        result.Add(notification);
+                    }
+                }
+            }
             return result;
         }
-
     }
 }

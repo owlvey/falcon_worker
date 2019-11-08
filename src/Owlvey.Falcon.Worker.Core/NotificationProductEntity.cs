@@ -5,6 +5,7 @@ namespace Owlvey.Falcon.Worker.Core
 {    
     public class NotificationProductEntity : NotificationBase
     {
+        public string organization { get; set; }
         public string name { get; set; }
         public decimal proportion { get; set; }
 
@@ -27,8 +28,9 @@ namespace Owlvey.Falcon.Worker.Core
 
         public List<Service> services { get; set; } = new List<Service>();
 
-        public void Load(ProductEntity product, ProductDashboardEntity entity, DateTime start, DateTime end) {
+        public void Load(OrganizationEntity organization,  ProductEntity product, ProductDashboardEntity entity, DateTime start, DateTime end) {
 
+            this.organization = organization.Name;
             this.name = product.Name;
             this.proportion = entity.SloProportion;
             this.requests = entity.SourceTotal;
@@ -47,6 +49,7 @@ namespace Owlvey.Falcon.Worker.Core
                     availability = item.Availability,
                     budget = item.Budget,
                     slo = item.Slo
+                    
                 });                
             }
         }

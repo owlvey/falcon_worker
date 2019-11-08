@@ -22,5 +22,10 @@ namespace Owlvey.Falcon.Worker.IntegrationTest
             var owlvey = new ShellComponent();
             await owlvey.NotifyAvailablityProductLeaders(DateTime.Now);
         }
+        [Fact]
+        public async Task NotifySquadMembers() {
+            var owlvey = new ShellComponent();
+            await owlvey.NotifyAvailablitySquads(DateTime.Now); 
+        }
     }
 }
