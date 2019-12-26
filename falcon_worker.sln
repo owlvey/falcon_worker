@@ -17,6 +17,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owlvey.Falcon.Worker.Core",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owlvey.Falcon.Worker.IntegrationTest", "tests\Owlvey.Falcon.Worker.IntegrationTest\Owlvey.Falcon.Worker.IntegrationTest.csproj", "{0D6F101A-01B8-446B-91F6-B51DA5EBFB05}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{C1765CAF-800C-4C6A-A3A4-CA083E99738C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "worker", "worker", "{DBDA1D3F-7FBA-4817-BB99-FBA82AC91101}"
+	ProjectSection(SolutionItems) = preProject
+		infrastructure\worker\Dockerfile = infrastructure\worker\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{416E2640-2396-41E3-9982-D3B97FCF865A}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\build.definition.yml = scripts\build.definition.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +109,7 @@ Global
 		{2BE456AE-2ED7-4B40-A93F-BF0032E972F7} = {56B410D9-1834-400F-9C3C-EDC10C62FDBE}
 		{A1F56523-193A-4354-9876-98EFA88EF491} = {95265393-90E7-474B-B998-4E3D604728EB}
 		{0D6F101A-01B8-446B-91F6-B51DA5EBFB05} = {56B410D9-1834-400F-9C3C-EDC10C62FDBE}
+		{DBDA1D3F-7FBA-4817-BB99-FBA82AC91101} = {C1765CAF-800C-4C6A-A3A4-CA083E99738C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E01142B-ADA1-4EA4-9EE6-28890E9F5785}

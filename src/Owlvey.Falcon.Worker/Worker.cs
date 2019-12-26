@@ -1,3 +1,5 @@
+// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.1&tabs=visual-studio
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,17 +8,47 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+
 namespace Owlvey.Falcon.Worker
 {
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        private Timer _timer;
 
         public Worker(ILogger<Worker> logger)
-        {
+        {            
             _logger = logger;
         }
+        public override void Dispose()
+        {
+            base.Dispose();
+            this._timer?.Dispose();
+        }
+        /*
+        public override Task StartAsync(CancellationToken cancellationToken)
+        {
 
+            Console.WriteLine("start worker");
+
+            this._timer = new Timer(Dowork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+
+            return Task.CompletedTask;
+        }
+
+        public void Dowork(object state) {
+            Console.WriteLine("do work at " + DateTime.Now.ToLongTimeString());
+        }
+
+       
+
+        public override Task StopAsync(CancellationToken cancellationToken)
+        {
+            Console.WriteLine("stop worker");
+            return Task.CompletedTask;
+
+        }
+        */
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -25,5 +57,6 @@ namespace Owlvey.Falcon.Worker
                 await Task.Delay(1000, stoppingToken);
             }
         }
+
     }
 }
