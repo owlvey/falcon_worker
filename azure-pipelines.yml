@@ -40,7 +40,7 @@ stages:
     - script: dotnet restore falcon_worker.sln 
       displayName: Restore Dependencies
     
-    - script: dotnet publish src/Owlvey.Falcon.Worker -c Release --no-restore -o ../../infrastructure/worker
+    - script: dotnet publish src/Owlvey.Falcon.Worker -c Release --no-restore -o ./infrastructure/worker/app
       displayName: Publish Application
 
     - bash: |
