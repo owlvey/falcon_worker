@@ -40,3 +40,5 @@ stages:
     - script: dotnet restore falcon_worker.sln --configfile nuget/NuGet.Config
       displayName: Restore Dependencies
     
+    - script: dotnet publish src/Owlvey.Falcon.Worker -c Release --no-restore -o ../../infrastructure/worker
+      displayName: Publish Application
