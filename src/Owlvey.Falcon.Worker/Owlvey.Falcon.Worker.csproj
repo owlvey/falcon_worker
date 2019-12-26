@@ -8,4 +8,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Owlvey.Falcon.Components\Owlvey.Falcon.Components.csproj" />
+    <ProjectReference Include="..\Owlvey.Falcon.Worker.Core\Owlvey.Falcon.Worker.Core.csproj" />
+  </ItemGroup>
 </Project>

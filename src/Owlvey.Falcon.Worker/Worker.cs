@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
+using Owlvey.Falcon.Components;
 
 namespace Owlvey.Falcon.Worker
 {
@@ -53,7 +53,12 @@ namespace Owlvey.Falcon.Worker
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+
+                var conf = new ConfigurationComponent();
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation("Worker identity at: {0}", conf.OwlveyIdentity  );
+                _logger.LogInformation("Worker api at: {0}", conf.OwlveyApi);
+                _logger.LogInformation("Worker notification at: {0}", conf.OwlveyNofiticationApi);
                 await Task.Delay(1000, stoppingToken);
             }
         }

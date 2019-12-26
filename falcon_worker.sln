@@ -32,6 +32,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1268366-50E4-46BE-AAC4-FA6F3DCB17B7}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines.yml = azure-pipelines.yml
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Global

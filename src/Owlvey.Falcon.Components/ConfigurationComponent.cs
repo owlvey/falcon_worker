@@ -6,42 +6,48 @@ namespace Owlvey.Falcon.Components
 {
     public class ConfigurationComponent
     {
-        public string OwlveyNofiticationApi {
-            get {
-                return "http://localhost:50003";
+        public ConfigurationComponent() {
+            this.OwlveyNofiticationApi = Environment.GetEnvironmentVariable("owlvey_notification_api");
+            if (string.IsNullOrWhiteSpace(this.OwlveyNofiticationApi))
+            {
+                this.OwlveyNofiticationApi = "http://localhost:50003";
             }
-        }
-        public string OwlveyApi { 
-            get {
-                return "http://10.237.18.199:45001";
-            } 
-        }
 
-        public string OwlveySite
-        {
-            get
+            this.OwlveyApi = Environment.GetEnvironmentVariable("owlvey_api");
+            if (string.IsNullOrWhiteSpace(this.OwlveyApi))
             {
-                return "http://10.237.18.199:45000";
+                this.OwlveyApi = "http://localhost:50001";
             }
-        }
-        public string OwlveyIdentity
-        {
-            get
+
+            this.OwlveySite = Environment.GetEnvironmentVariable("owlvey_site");
+            if (string.IsNullOrWhiteSpace(this.OwlveySite))
             {
-                return "http://10.237.18.199:45002";
+                this.OwlveySite = "http://localhost:4200";
             }
-        }
-        public string OwlveyClientId {
-            get {
-                return "CF4A9ED44148438A99919FF285D8B48D";
-            }
-        }
-        public string OwlveySecretKey
-        {
-            get
+
+            this.OwlveyIdentity = Environment.GetEnvironmentVariable("owlvey_identity");
+            if (string.IsNullOrWhiteSpace(this.OwlveyIdentity))
             {
-                return "0da45603-282a-4fa6-a20b-2d4c3f2a2127";
+                this.OwlveyIdentity = "http://localhost:50000";
             }
+
+            this.OwlveyClientId = Environment.GetEnvironmentVariable("owlvey_client_id");
+            if (string.IsNullOrWhiteSpace(this.OwlveyClientId))
+            {
+                this.OwlveyClientId = "CF4A9ED44148438A99919FF285D8B48D";
+            }
+            this.OwlveySecretKey = Environment.GetEnvironmentVariable("owlvey_client_id");
+            if (string.IsNullOrWhiteSpace(this.OwlveySecretKey))
+            {
+                this.OwlveySecretKey = "0da45603-282a-4fa6-a20b-2d4c3f2a2127";
+            }
+
         }
+        public string OwlveyNofiticationApi { get; protected set; }
+        public string OwlveyApi { get; protected set; }
+        public string OwlveySite { get; protected set; }
+        public string OwlveyIdentity { get; protected set; }        
+        public string OwlveyClientId { get; protected set; }
+        public string OwlveySecretKey { get; protected set; }        
     }
 }
