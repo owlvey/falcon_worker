@@ -108,7 +108,7 @@ namespace Owlvey.Falcon.Components.Gateways
         public async Task<SquadDetailEntity> GetSquadDetail(int squadId, DateTime start, DateTime end)
         {
             string url = this.configurationComponent.OwlveyApi +
-                        string.Format("/squads/{0}??start={1}&end={2}", squadId, start, end);
+                string.Format("/squads/{0}?start={1}&end={2}", squadId, start.ToString("o"), end.ToString("o"));
 
             var squads = await this.Get<SquadDetailEntity>(url);
 

@@ -62,7 +62,7 @@ namespace Owlvey.Falcon.Components
 
                 foreach (var member in item.whom)
                 {
-                      member.slack_member = "UFR3ZBD6Y";
+                      // member.slack_member = "UFR3ZBD6Y";
                 }
             }
 
