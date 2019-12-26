@@ -18,12 +18,45 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: Docker@2
-      displayName: Build an image
+      vmImage: 'ubuntu-16.04'
+    steps:    
+    - task: UseDotNet@2
+      displayName: 'Use .NET 2 Core sdk'
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/infrastructure/worker/Dockerfile'
+        packageType: sdk
+        version: 2.x
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk'
+      inputs:
+        packageType: sdk
+        version: 3.x
+        includePreviewVersions: true
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+
+    
+    - bash: |
+        pwd
+        ls
+      displayName: list folders
+  
+    - script: dotnet restore Owlvey.Falcon.sln --configfile nuget/NuGet.Config
+      displayName: Restore Dependencies
+      
+    - script: dotnet build Owlvey.Falcon.sln -c Release
+      displayName: Build Projects
+      
+    - script: dotnet publish src/Owlvey.Falcon.Worker -c Release --no-restore -o ../../infrastructure/worker
+      displayName: Package Application
+
+    - task: Docker@2
+      displayName: buildAndPushRelational
+      inputs:
+        containerRegistry: 'Owlvey Docker Connection'
+        repository: owlvey/worker
+        Dockerfile: infrastructure/worker/Dockerfile
+        buildContext: infrastructure/worker
         tags: |
-          $(tag)
+        $(Build.BuildId)
+        latest
