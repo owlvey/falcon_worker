@@ -42,3 +42,14 @@ stages:
     
     - script: dotnet publish src/Owlvey.Falcon.Worker -c Release --no-restore -o ../../infrastructure/worker
       displayName: Publish Application
+
+    - task: Docker@2
+      displayName: buildAndPushRelational
+      inputs:
+        containerRegistry: 'Owlvey Docker Connection'
+        repository: owlvey/worker
+        Dockerfile: infrastructure/worker/Dockerfile
+        buildContext: infrastructure/worker
+        tags: |
+          $(Build.BuildId)
+          latest
