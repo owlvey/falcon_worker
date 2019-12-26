@@ -36,3 +36,7 @@ stages:
         pwd
         ls
       displayName: list folders
+    
+    - script: dotnet restore falcon_worker.sln --configfile nuget/NuGet.Config
+      displayName: Restore Dependencies
+    
