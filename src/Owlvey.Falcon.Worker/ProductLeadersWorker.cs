@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Owlvey.Falcon.Components;
 
 namespace Owlvey.Falcon.Worker
 {
@@ -19,8 +20,18 @@ namespace Owlvey.Falcon.Worker
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+                _logger.LogInformation("Product Leader running at: {time}", DateTimeOffset.Now);
+                try
+                {
+                    var owlvey = new ShellComponent();
+                    await owlvey.NotifyAvailablityProductLeaders(DateTime.Now);
+                    _logger.LogInformation("Product Leader ends at: {time}", DateTimeOffset.Now);
+                }
+                catch (Exception ex)
+                {
+                    this._logger.LogError(ex, "Exception on Product Leader Notificaiton");
+                }                
+                await Task.Delay(12 * 60 * 60 * 1000, stoppingToken);
             }
         }
     }

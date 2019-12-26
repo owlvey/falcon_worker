@@ -2,3 +2,5 @@ version: "3"
 services:
     worker:
         image: "owlvey/worker:latest"
+        environment:
+     
