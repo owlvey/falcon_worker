@@ -37,7 +37,7 @@ stages:
         ls
       displayName: list folders
     
-    - script: dotnet restore falcon_worker.sln --configfile nuget/NuGet.Config
+    - script: dotnet restore falcon_worker.sln 
       displayName: Restore Dependencies
     
     - script: dotnet publish src/Owlvey.Falcon.Worker -c Release --no-restore -o ../../infrastructure/worker
