@@ -50,7 +50,7 @@ namespace Owlvey.Falcon.Components.Gateways
             var response = await client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                throw new ApplicationException(response.StatusCode.ToString());
+                throw new ApplicationException(string.Format("{0}, message: {1}", url, response.StatusCode.ToString()));
             }
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(content);
