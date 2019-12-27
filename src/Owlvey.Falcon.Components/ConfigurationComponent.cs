@@ -36,7 +36,7 @@ namespace Owlvey.Falcon.Components
             {
                 this.OwlveyClientId = "CF4A9ED44148438A99919FF285D8B48D";
             }
-            this.OwlveySecretKey = Environment.GetEnvironmentVariable("owlvey_client_id");
+            this.OwlveySecretKey = Environment.GetEnvironmentVariable("owlvey_secret_key");
             if (string.IsNullOrWhiteSpace(this.OwlveySecretKey))
             {
                 this.OwlveySecretKey = "0da45603-282a-4fa6-a20b-2d4c3f2a2127";
