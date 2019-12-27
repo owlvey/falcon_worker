@@ -2,6 +2,7 @@
 using Owlvey.Falcon.Worker.Core;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -71,7 +72,7 @@ namespace Owlvey.Falcon.Components.Gateways
         {            
             string url = this.configurationComponent.OwlveyApi +
                     string.Format("/products/{0}/dashboard?start={1}&end={2}", productId,
-                    start.ToString("o"), end.ToString("o"));            
+                    start.ToString("s", CultureInfo.InvariantCulture), end.ToString("s", CultureInfo.InvariantCulture));            
             var members = await this.Get<ProductDashboardEntity>(url);
             return members;
         }
@@ -80,8 +81,8 @@ namespace Owlvey.Falcon.Components.Gateways
             //2019-10-04T13:38:58.732Z
             //2019-08-05T14:47:32.0327258Z            
             string url = this.configurationComponent.OwlveyApi  + 
-                    string.Format("/services?productId={0}&start={1}&end={2}", productId, 
-                    start.ToString("o"), end.ToString("o"));
+                    string.Format("/services?productId={0}&start={1}&end={2}", productId,
+                    start.ToString("s", CultureInfo.InvariantCulture), end.ToString("s", CultureInfo.InvariantCulture));
 
             var services = await this.Get<List<ServiceEntity>>(url);
             return services;
@@ -89,7 +90,7 @@ namespace Owlvey.Falcon.Components.Gateways
         public async Task<ServiceEntity> GetServiceDetail(int serviceId, DateTime start, DateTime end) {
             string url = this.configurationComponent.OwlveyApi +
                         string.Format("/services/{0}?start={1}&end={2}", serviceId,
-                        start.ToString("o"), end.ToString("o"));
+                        start.ToString("s", CultureInfo.InvariantCulture), end.ToString("s", CultureInfo.InvariantCulture));
 
             var services = await this.Get<ServiceEntity>(url);
             return services;
@@ -108,7 +109,8 @@ namespace Owlvey.Falcon.Components.Gateways
         public async Task<SquadDetailEntity> GetSquadDetail(int squadId, DateTime start, DateTime end)
         {
             string url = this.configurationComponent.OwlveyApi +
-                string.Format("/squads/{0}?start={1}&end={2}", squadId, start.ToString("o"), end.ToString("o"));
+                string.Format("/squads/{0}?start={1}&end={2}", squadId,
+                start.ToString("s", CultureInfo.InvariantCulture), end.ToString("s", CultureInfo.InvariantCulture));
 
             var squads = await this.Get<SquadDetailEntity>(url);
 

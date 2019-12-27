@@ -28,8 +28,8 @@ namespace Owlvey.Falcon.Worker
                 {
                     services.AddHostedService<Worker>();
                     services.AddHostedService<ProductLeadersWorker>();
-                    services.AddHostedService<SquadMembersWorker>();
-                    services.AddHostedService<ServiceLeadersWorker>();
+                    //services.AddHostedService<SquadMembersWorker>();
+                    //services.AddHostedService<ServiceLeadersWorker>();
                 });
     }
 }
